@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Acompanhe as condições meteorológicas em tempo real com o Weather Tracker. Obtenha informações precisas sobre temperatura, previsão do tempo, umidade, velocidade do vento e muito mais. Planeje suas atividades ao ar livre com confiança e esteja preparado para qualquer mudança climática. Experimente o Weather Tracker hoje mesmo e esteja sempre um passo à frente do clima!"
+    />
+    <meta
+      name="keywords"
+      content="Weather Tracker, previsão do tempo, condições meteorológicas, temperatura, umidade, vento, clima, clima atual, clima em tempo real, previsão do clima, tempo, meteorologia, temperatura atual, previsão do tempo hoje, radar meteorológico, previsão estendida, clima da semana, clima do dia, previsão do tempo local, previsão do tempo precisão, monitoramento do clima, clima mundial, informações meteorológicas, clima diário, tempestades, clima sazonal, clima de viagem, chuva, neve, sol, nuvens, tempo de praia, tempo de montanha, previsão por localização, previsão por cidade"
+    />
+
+    <meta name="author" content="Weather Tracker - Guilherme Bustamante" />
+    <meta name="language" content="Português" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- ?Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@WeatherTracker" />
+    <meta
+      name="twitter:title"
+      content="Weather Tracker - Condições Meteorológicas em Tempo Real"
+    />
+    <meta
+      name="twitter:description"
+      content="Acompanhe as condições meteorológicas em tempo real com o Weather Tracker."
+    />
+    <meta name="twitter:image" content="./src/images/logoMobile.png" />
+
+    <!-- ?Social Share -->
+    <meta
+      property="og:title"
+      content="Weather Tracker - Condições Meteorológicas em Tempo Real"
+    />
+    <meta
+      property="og:description"
+      content="Acompanhe as condições meteorológicas em tempo real com o Weather Tracker."
+    />
+    <meta property="og:image" content="./src/images/logoMobile.png" />
+    <meta
+      property="og:url"
+      content="https://gui-bus.github.io/weatherTracker/"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="./src/css/styles.css" />
+
+    <!-- ?Favicon -->
+    <link
+      rel="shortcut icon"
+      href="./src/images/icon.svg"
+      type="image/x-icon"
+    />
+
+    <!-- ?FontAwesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <title>Weather Tracker - Condições Meteorológicas em Tempo Real</title>
+  </head>
+
+  <body
+    class="bg-cover bg-center bg-no-repeat bg-fixed font-montserrat text-white"
+    style="background-image: url('src/images/bgDesktop.png')"
+  >
+    <main>
+      <div
+        class="flex flex-col items-center justify-center py-5 md:py-0 md:flex-row md:space-x-5 md:mx-5"
+      >
+        <!-- ?Search section -->
+        <section class="md:w-1/2 h-[100vh] w-[90vw] relative">
+          <div class="flex flex-col text-center justify-center">
+            <!-- ?Images -->
+            <div>
+              <img
+                src="./src/images/logoDesktop.png"
+                alt="Logo Desktop"
+                class="hidden w-80 h-auto mx-auto mt-14 mb-5 md:block"
+              />
+              <img
+                src="./src/images/logoMobile.png"
+                alt="Logo Mobile"
+                class="md:hidden w-72 h-auto mt-5 mx-auto"
+              />
+            </div>
+
+            <p class="font-medium text-2xl md:w-96 -mt-5 md:mt-0 mx-auto">
+              Explore o universo meteorológico de maneira
+              <span class="text-mainYellow">intuitiva e eficiente</span>
+            </p>
+          </div>
+
+          <!-- ?Search Bar -->
+          <div class="flex justify-center gap-2 my-6">
+            <input
+              type="text"
+              name="text"
+              id="city-search-input"
+              class="w-64 md:w-96 appearance-none rounded-full bg-gray-200 text-charcoal py-3 px-4 shadow-xl leading-tight focus:outline-none focus:shadow-outline"
+              autocomplete="off"
+              placeholder="Digite o nome da cidade"
+              oninput="validateText(this)"
+            />
+            <div class="error-message" id="error-message"></div>
+
+            <button
+              id="city-search-button"
+              class="shadow-2xl rounded-full p-4 bg-gray-200 text-charcoal hover:bg-gray-300 focus:outline-none"
+              onclick="validateSearchForm()"
+            >
+              <img
+                class="w-5 h-auto"
+                src="./src/images/assets/search-icon.svg"
+                alt="Icone de uma lupa"
+              />
+            </button>
+          </div>
+
+          <section>
+            <img
+              id="weather-icon"
+              class="mx-auto w-36 h-auto hover:scale-105 transition-all duration-200 ease-in-out"
+              src="./src/images/assets/loading-icon.svg"
+              aria-hidden="true"
+              alt="Ícone que ilustra a temperatura atual."
+            />
+            <div class="city-info mt-4 text-center">
+              <span id="weather-main" class="text-3xl font-medium"></span>
+            </div>
+
+            <p
+              id="current-temperature"
+              class="flex justify-center text-7xl font-bold"
+            ></p>
+
+            <div class="flex flex-row space-x-10 justify-center my-3">
+              <div class="flex items-center">
+                <img
+                  id="sunrise-container"
+                  src="./src/images/sunrise.png"
+                  alt="Nascer do sol"
+                  class="w-10 h-auto hidden"
+                />
+                <span id="sunrise-time" class="ml-2"></span>
+              </div>
+
+              <div class="flex items-center">
+                <img
+                  id="sunset-container"
+                  src="./src/images/sunset.png"
+                  alt="Por do sol"
+                  class="w-10 h-auto hidden"
+                />
+                <span id="sunset-time" class="ml-2"></span>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- ?Weather Stats -->
+        <section
+          class="flex flex-col text-center justify-center md:w-1/2 h-[100vh] w-[100vw] bg-bgGrayTransparent50 rounded-xl md:rounded-none"
+        >
+          <div class="z-50 hidden" id="weatherContainer">
+            <p class="text-center -mt-14 mb-5 md:mt-2 md:mb-2">
+              <span id="city-name"></span>
+              <span id="city-country"></span>
+            </p>
+
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Data</p>
+              <p id="city-utc">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Hora</p>
+              <p id="city-utcDay">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Sensação térmica</p>
+              <p id="feels-like-temperature">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Ponto de orvalho</p>
+              <p id="city-dew_point">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Umidade</p>
+              <p id="current-humidity">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Visibilidade</p>
+              <p id="city-visibility">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Velocidade do vento</p>
+              <p id="wind-speed">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Direção do vento</p>
+              <p id="wind-deg">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Rajada</p>
+              <p id="wind-gust">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Pressão</p>
+              <p id="city-pressure">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Chuva em 1h</p>
+              <p id="city-rain_1h">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Neve em 1h</p>
+              <p id="city-snow_1h">-</p>
+            </div>
+            <div
+              class="flex justify-between py-2 px-10 bg-bgGrayTransparent80 rounded-xl mx-5 mb-1 text-sm"
+            >
+              <p>Latitude e Longitude</p>
+              <div class="flex items-center">
+                <p id="lat">-</p>
+                <p class="mx-2">/</p>
+                <p id="lon">-</p>
+              </div>
+            </div>
+            <a
+              id="mapLink"
+              href="#"
+              target="_blank"
+              class="inline-block bg-bgGrayTransparent80 hover:bg-mainYellow hover:text-charcoal transition-all duration-200 ease-in-out border border-mainYellow font-medium rounded-lg my-3 py-3 px-6 shadow-lg"
+            >
+              Ver Localização no Google Maps
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./src/javascript/opw.js"></script>
+  </body>
+
+  <footer class="bg-bgGrayTransparent50 text-white py-6">
+    <div
+      class="container mx-auto px-4 flex items-center justify-center space-x-6"
+    >
+      <div>
+        <img
+          src="./src/images/logoDesktop.png"
+          alt="Logo Desktop"
+          class="hidden w-56 h-auto mx-auto md:block"
+        />
+        <img
+          src="./src/images/logoMobile.png"
+          alt="Logo Mobile"
+          class="md:hidden w-36 h-auto mx-auto"
+        />
+      </div>
+    </div>
+    <div class="text-center mt-4 text-sm">
+      <p>
+        &copy 2023 Weather Tracker. Todos os direitos reservados - Site
+        desenvolvido por
+        <a
+          class="underline hover:text-mainYellow hover:scale-105 transition-all duration-200 ease-in-out"
+          href="https://www.linkedin.com/in/gui-bus/"
+          target="_blank"
+          >Guilherme Bustamante</a
+        >.
+      </p>
+    </div>
+  </footer>
+</html>
